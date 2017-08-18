@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<!-- 配置DispatcherServlet -->
+	<servlet>
+		<servlet-name>springDispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 配置DispatcherServlet 的一个初始化参数：配置SpringMVC 配置文件的位置和名称 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<!-- Spring Web MVC框架将加载“classpath:applicationContext.xml”来进行初始化上下文 -->
+			<param-value>
+				classpath:applicationContext.xml
+			</param-value>
+		</init-param>
+		<!-- 启动容器时初始化该Servlet -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+
+<!--  <url-pattern>写成/和/*的区别 
+
+/* :这种形式将会覆盖所有其它的servlet。不管你发出了什么样的请求，最终都会在这个servlet中结束
+	一般在Filter中使用这种模式。它可以通过调用doFilter()方法来使请求继续
+/  :这种形式不会覆盖任何其它的servlet。它仅仅替换了servlet容器中内建的默认servlet。
+	会匹配到/login这样的路径型url，不会匹配到模式为*.jsp这样的后缀型url
+-->
+	<servlet-mapping>
+		<servlet-name>springDispatcherServlet</servlet-name>
+		<!-- 所有"/"请求都会由名为springDispatcherServlet的DispatcherServlet处理 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
+
+</web-app>
